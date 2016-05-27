@@ -3,9 +3,33 @@
 <head>
   <meta charset="UTF-8">
   <title>Canvas: </title>
+
+  <link href="styles.css" rel="stylesheet">
 </head>
 <body>
+  <canvas id="canvas"></canvas>
   <script type="text/javascript">
+  (function () {
+    "use strict";
+    let canvas = document.getElementById('canvas');
+    let context = canvas.getContext('2d');
+
+    // Add event listeners
+    window.addEventListener('resize', resizeCanvas, false);
+
+    function resizeCanvas(oEvent) {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      draw();
+    }
+
+    function draw() {
+      context.font = '48px consolas';
+      context.strokeText('Canvas', canvas.width/2.5, canvas.height/2.2);
+    }
+
+    resizeCanvas();
+  })();
   </script>
 </body>
 </html>
