@@ -1,0 +1,34 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+}
+
+canvas {
+  display: block;
+}
+
+@font-face {
+    font-family: 'ogd';
+    src: url('tsaco7.ttf');
+    font-weight: 'bold';
+    font-style: 'normal';
+}
+
+@font-face {
+  font-family: 'ogd';
+  src: url('tsaco5.ttf');
+  font-weight: 'normal';
+  font-style: 'normal';
+}
+
+@font-face {
+  font-family: 'ogd';
+  src: url('tsaco5i.ttf');
+  font-weight: 'normal';
+  font-style: 'italic';
+}

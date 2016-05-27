@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Canvas: OGD Logo </title>
+
+  <link href="styles.css" rel="stylesheet">
+</head>
+<body>
+  <canvas id="canvas"></canvas>
+  <script type="text/javascript">
+  (function () {
+    "use strict";
+    const OFFSET_X = -200;
+    const OFFSET_Y = -125;
+
+    let canvas = document.getElementById('canvas');
+    let context = canvas.getContext('2d');
+    let position = {
+      x: window.innerWidth/2.5 - OFFSET_X/2,
+      y: window.innerHeight/2.2 - OFFSET_Y/2
+    };
+    let rotating = false;
+
+    init();
+
+    function resizeCanvas(oEvent) {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+
+      position.x = window.innerWidth/2.5 - OFFSET_X/2;
+      position.y = window.innerHeight/2.2 - OFFSET_Y/2;
+
+      draw();
+    }
+
+    function draw() {
+      context.clearRect(0, 0, canvas.width, canvas.height);
+      context.translate(position.x, position.y);
+      context.rotate((Math.PI/180)*-1);
+
+      drawText();
+      drawShapes();
+      context.translate(-position.x, -position.y);
+    }
+
+    function drawText() {
+      context.fillStyle = '#6C276A';
+
+      // OGD
+      context.font = 'bold 164px ogd';
+      context.fillText('OGD', OFFSET_X, OFFSET_Y);
+
+      // ict-diensten
+      context.font = 'bold 60px ogd';
+      context.fillText('ict-diensten', OFFSET_X + 70, OFFSET_Y + 70);
+
+      // samen slimmer
+      context.font = 'italic normal 50px ogd';
+      context.fillText('samen slimmer', OFFSET_X + 70, OFFSET_Y + 160);
+    }
+
+    function drawShapes() {
+      context.strokeStyle = '#EE2E24';
+      context.fillStyle = '#EE2E24';
+
+      // triangle left
+      context.beginPath();
+      context.moveTo(OFFSET_X - 160, OFFSET_Y - 100);
+      context.lineTo(OFFSET_X - 110, OFFSET_Y - 50);
+      context.lineTo(OFFSET_X - 160, OFFSET_Y);
+      context.fill();
+
+      // shape right
+      context.beginPath();
+      context.moveTo(OFFSET_X - 50, OFFSET_Y - 100);  // top right
+      context.lineTo(OFFSET_X - 50, OFFSET_Y);        // bottom right
+      context.lineTo(OFFSET_X - 125, OFFSET_Y);       // bottom left
+      context.lineTo(OFFSET_X - 75, OFFSET_Y - 50);   // center
+      context.lineTo(OFFSET_X - 125, OFFSET_Y - 100); // top left
+      context.fill();
+
+      // line
+      context.lineWidth = 3;
+      context.beginPath();
+      context.moveTo(OFFSET_X + 70, OFFSET_Y + 115);
+      context.lineTo(OFFSET_X + 380, OFFSET_Y + 115);
+      context.stroke();
+    }
+
+    function toggleRotate(oEvent) {
+      oEvent.preventDefault();
+      oEvent.stopPropagation();
+
+      if(rotating !== false) {
+        clearInterval(rotating);
+        rotating = false;
+      } else {
+        rotating = setInterval(draw, 10);
+      }
+    }
+
+    function init() {
+      // Add event listeners
+      window.addEventListener('resize', resizeCanvas, false);
+      canvas.addEventListener('click', toggleRotate, false);
+
+      resizeCanvas();
+
+      context.translate(position.x, position.y);
+      context.rotate((Math.PI/180)*-20);
+      context.translate(-position.x, -position.y);
+
+      // Draw again after 100ms (when the font has loaded)
+      setTimeout(draw, 100);
+    }
+  })();
+  </script>
+</body>
+</html>
