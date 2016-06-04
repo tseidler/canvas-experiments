@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Canvas: Particles</title>
+
+  <link href="styles.css" rel="stylesheet">
+</head>
+<body>
+  <canvas id="canvas"></canvas>
+  <script type="text/javascript" src="js/particle.js"></script>
+  <script type="text/javascript">
+  (function () {
+    "use strict";
+    let canvas = document.getElementById('canvas');
+    let context = canvas.getContext('2d');
+    let particles = [];
+    let prevTimestamp = null;
+
+    const TYPES = [Particle, CircleParticle, SmileyParticle, FlatParticle, TallParticle, RotatingParticle, DuckParticle];
+
+    // Add event listeners
+    window.addEventListener('mousemove', spawnParticle, false);
+    window.addEventListener('resize', resizeCanvas, false);
+
+    function spawnParticle(oEvent) {
+      let color = '#' + ('00000'+(Math.random()*(1<<24)|0).toString(16)).slice(-6);
+      let particleType = TYPES[Math.round(Math.random() * (TYPES.length -1))];
+      let particle = new particleType(oEvent.clientX, oEvent.clientY, 10, 10, 3 + Math.random() * 5, 1, color);
+      particles.push(particle);
+    }
+
+    function resizeCanvas(oEvent) {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      window.requestAnimationFrame(draw);
+    }
+
+    function draw(timestamp) {
+      if(!prevTimestamp) { prevTimestamp = timestamp; }
+
+      let dTime = (timestamp - prevTimestamp) / 1000;
+      context.clearRect(0, 0, canvas.width, canvas.height);
+      particles.forEach(function (particle) {
+        particle.update(dTime);
+        particle.draw(context);
+      });
+      prevTimestamp = timestamp;
+      particles = particles.filter(filterExpiredParticles);
+      window.requestAnimationFrame(draw);
+    }
+
+    function filterExpiredParticles(particle) {
+      return particle.lifetime > 0;
+    }
+
+    resizeCanvas();
+  })();
+  </script>
+</body>
+</html>
