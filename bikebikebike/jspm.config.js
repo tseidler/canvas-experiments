@@ -1,10 +1,15 @@
 SystemJS.config({
-  paths: {
-    "npm:": "jspm_packages/npm/",
-    "bikebikebike/": "src/"
-  },
   browserConfig: {
-    "baseURL": "/"
+    "paths": {
+      "npm:": "/jspm_packages/npm/",
+      "bikebikebike/": "/src/"
+    }
+  },
+  nodeConfig: {
+    "paths": {
+      "npm:": "jspm_packages/npm/",
+      "bikebikebike/": "src/"
+    }
   },
   devConfig: {
     "map": {
@@ -14,7 +19,7 @@ SystemJS.config({
   transpiler: "plugin-babel",
   packages: {
     "bikebikebike": {
-      "main": "bikebikebike.js",
+      "main": "index.js",
       "meta": {
         "*.js": {
           "loader": "plugin-babel"

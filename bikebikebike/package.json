@@ -2,13 +2,14 @@
   "name": "bikebikebike",
   "version": "1.0.0",
   "main": "index.js",
-  "dependencies": {},
+  "dependencies": [],
   "devDependencies": {
-    "jspm": "^0.17.0-beta.22"
+    "jspm": "^0.17.0-beta.22",
+    "live-server": "^1.0.0"
   },
   "jspm": {
     "name": "bikebikebike",
-    "main": "bikebikebike.js",
+    "main": "game.js",
     "dependencies": {},
     "devDependencies": {
       "plugin-babel": "npm:systemjs-plugin-babel@^0.0.12"
