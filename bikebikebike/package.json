@@ -1,0 +1,23 @@
+{
+  "name": "bikebikebike",
+  "version": "1.0.0",
+  "main": "index.js",
+  "dependencies": {},
+  "devDependencies": {
+    "jspm": "^0.17.0-beta.22"
+  },
+  "jspm": {
+    "name": "bikebikebike",
+    "main": "bikebikebike.js",
+    "dependencies": {},
+    "devDependencies": {
+      "plugin-babel": "npm:systemjs-plugin-babel@^0.0.12"
+    }
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": ""
+}
