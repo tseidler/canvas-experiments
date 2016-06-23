@@ -1,15 +1,35 @@
+import Bike from 'bikebikebike/bike';
+
 export default class Game {
   constructor() {
     this.canvas = document.getElementById('canvas');
     this.context = canvas.getContext('2d');
+    this.lastDraw = null;
+
     window.addEventListener('resize', this.resizeCanvas, false);
 
-    this.resizeCanvas();
+    this.bike = new Bike();
   }
 
   resizeCanvas(oEvent) {
     this.canvas.width = window.innerWidth;
     this.canvas.height = window.innerHeight;
-    // window.requestAnimationFrame(draw);
+  }
+
+  start() {
+    this.resizeCanvas();
+    window.requestAnimationFrame((timestamp) => this.draw(timestamp));
+  }
+
+  draw(timestamp) {
+    if(!this.lastDraw) { this.lastDraw = timestamp; }
+    let dTime = (timestamp - this.lastDraw) / 1000;
+    
+    this.bike.update(dTime);
+    this.bike.draw(this.context);
+
+    this.lastDraw = timestamp;
+    // keep drawing
+    window.requestAnimationFrame((time) => this.draw(time));
   }
 }
