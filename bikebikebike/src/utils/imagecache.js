@@ -7,6 +7,25 @@ export default class ImageCache {
     this.missing_image = image;
   }
 
+  load(images, callback) {
+    let imagesToLoad = images.length;
+    let imagesLoaded = 0;
+
+    for(const image of images) {
+      if(!this.cachedImages[image.name]) {
+        let newImage = new Image();
+        newImage.onload = () => {
+          this.cachedImages[image.name] = newImage;
+
+          if(imagesLoaded === imagesLoaded && typeof callback === "function") {
+            callback();
+          }
+        };
+        newImage.src = image.URI;
+      }
+    }
+  }
+
   get(imageName) {
     if(this.cachedImages.hasOwnProperty(imageName)) {
       return this.cachedImages[imageName];
