@@ -1,14 +1,18 @@
+import ImageCache from 'utils/imagecache';
 import Bike from 'bikebikebike/bike';
 
 export default class Game {
   constructor() {
     this.canvas = document.getElementById('canvas');
     this.context = canvas.getContext('2d');
+    this.resources = {
+      images: new ImageCache()
+    }
     this.lastDraw = null;
 
     window.addEventListener('resize', this.resizeCanvas, false);
 
-    this.bike = new Bike();
+    this.bike = new Bike({image: this.resources.images.get('/images/biker.png')});
   }
 
   resizeCanvas(oEvent) {

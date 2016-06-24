@@ -14,15 +14,10 @@ export default class Bike {
     this.color = options.color;
     this.x = options.x;
     this.y = options.y;
-    this.image = new Image();
-    this.image.src = '/images/biker.png';
-    this.sprite = new Sprite(this.image, {x: 0, y: 128}, {width: 64, height: 64}, 10, 4, true);
+    this.sprite = new Sprite(options.image, {x: 0, y: 128}, {width: 64, height: 64}, 10, 4, true);
   }
 
   draw(context) {
-    // context.fillStyle = this.color;
-    // context.fillRect(this.x, this.y, 50, 50);
-
     this.sprite.draw(context, this.x + 200, this.y + 200);
   }
 
