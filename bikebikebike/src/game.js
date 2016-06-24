@@ -12,15 +12,12 @@ export default class Game {
 
     window.addEventListener('resize', this.resizeCanvas, false);
 
-    this.bike = new Bike({image: this.resources.images.get('/images/biker.png')});
-  }
-
-  resizeCanvas(oEvent) {
-    this.canvas.width = window.innerWidth;
-    this.canvas.height = window.innerHeight;
+    this.loadResources();
   }
 
   start() {
+    this.bike = new Bike({image: this.resources.images.get('biker')});
+
     this.resizeCanvas();
     window.requestAnimationFrame((timestamp) => this.draw(timestamp));
   }
@@ -28,12 +25,36 @@ export default class Game {
   draw(timestamp) {
     if(!this.lastDraw) { this.lastDraw = timestamp; }
     let dTime = (timestamp - this.lastDraw) / 1000;
+
+    this.clearCanvas();
     
+    // DRAW ALL THE THINGS!!!1
     this.bike.update(dTime);
     this.bike.draw(this.context);
 
     this.lastDraw = timestamp;
-    // keep drawing
+    
+    // keep drawing forever
     window.requestAnimationFrame((time) => this.draw(time));
+  }
+
+  clearCanvas() {
+    this.context.save();
+    this.context.setTransform(1, 0, 0, 1, 0, 0);
+    this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
+    this.context.restore()
+  }
+
+  resizeCanvas(oEvent) {
+    this.canvas.width = window.innerWidth;
+    this.canvas.height = window.innerHeight;
+  }
+
+  loadResources() {
+    this.resources.images.load([
+        {name: 'biker', URI: '/images/biker.png'}
+      ],
+      () => { this.start() }
+    );
   }
 }
