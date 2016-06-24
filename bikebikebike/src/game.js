@@ -16,7 +16,7 @@ export default class Game {
   }
 
   start() {
-    this.bike = new Bike({image: this.resources.images.get('biker')});
+    this.player = new Bike({image: this.resources.images.get('biker')});
 
     this.resizeCanvas();
     window.requestAnimationFrame((timestamp) => this.draw(timestamp));
@@ -29,8 +29,8 @@ export default class Game {
     this.clearCanvas();
     
     // DRAW ALL THE THINGS!!!1
-    this.bike.update(dTime);
-    this.bike.draw(this.context);
+    this.player.update(dTime);
+    this.player.draw(this.context);
 
     this.lastDraw = timestamp;
     
