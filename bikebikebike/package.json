@@ -2,7 +2,7 @@
   "name": "bikebikebike",
   "version": "1.0.0",
   "main": "index.js",
-  "dependencies": [],
+  "dependencies": {},
   "devDependencies": {
     "jspm": "^0.17.0-beta.22",
     "live-server": "^1.0.0"
