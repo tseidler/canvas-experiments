@@ -1,3 +1,4 @@
+import UserInput from 'utils/userinput';
 import ImageCache from 'utils/imagecache';
 import Bike from 'bikebikebike/bike';
 
@@ -5,6 +6,7 @@ export default class Game {
   constructor() {
     this.canvas = document.getElementById('canvas');
     this.context = canvas.getContext('2d');
+    this.input = new UserInput();
     this.resources = {
       images: new ImageCache()
     }
@@ -19,23 +21,44 @@ export default class Game {
     this.player = new Bike({image: this.resources.images.get('biker')});
 
     this.resizeCanvas();
-    window.requestAnimationFrame((timestamp) => this.draw(timestamp));
+    window.requestAnimationFrame((timestamp) => this.update(timestamp));
   }
 
-  draw(timestamp) {
-    if(!this.lastDraw) { this.lastDraw = timestamp; }
-    let dTime = (timestamp - this.lastDraw) / 1000;
+  update(timestamp) {
+    const MOVE_SPEED = 500;  // px / sec
+    if(!this.lastUpdate) { this.lastUpdate = timestamp; }
+    let dTime = (timestamp - this.lastUpdate) / 1000;
+    let player = this.player;
 
+    // handle controls (basic)
+    if(this.input.pressed('left')) {
+      player.x -= MOVE_SPEED * dTime;
+    }
+    if(this.input.pressed('right')) {
+      player.x += MOVE_SPEED * dTime;
+    }
+
+    if(this.input.pressed('up')) {
+      player.y -= MOVE_SPEED * dTime;
+    }
+    if(this.input.pressed('down')) {
+      player.y += MOVE_SPEED * dTime;
+    }
+
+    this.draw(dTime);
+
+    // keep drawing forever
+    this.lastUpdate = timestamp;
+    window.requestAnimationFrame((time) => this.update(time));
+
+  }
+
+  draw(dTime) {
     this.clearCanvas();
-    
+
     // DRAW ALL THE THINGS!!!1
     this.player.update(dTime);
     this.player.draw(this.context);
-
-    this.lastDraw = timestamp;
-    
-    // keep drawing forever
-    window.requestAnimationFrame((time) => this.draw(time));
   }
 
   clearCanvas() {
