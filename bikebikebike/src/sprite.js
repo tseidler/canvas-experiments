@@ -15,6 +15,13 @@ export default class Sprite {
     this.currentFrame += this.speed * dTime;
   }
 
+  getFramePosition() {
+    return this.pos;
+  }
+  setFramePosition(framePosition) {
+    this.pos = framePosition;
+  }
+
   draw(context, screenX, screenY) {
     let frameIndex = 0;
     if(this.speed > 0 && this.numFrames > 1) {

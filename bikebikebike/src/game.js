@@ -29,6 +29,7 @@ export default class Game {
     if(!this.lastUpdate) { this.lastUpdate = timestamp; }
     let dTime = (timestamp - this.lastUpdate) / 1000;
     let player = this.player;
+    let oldXPosition = player.x;
 
     // handle controls (basic)
     if(this.input.pressed('left')) {
@@ -44,6 +45,11 @@ export default class Game {
     if(this.input.pressed('down')) {
       player.y += MOVE_SPEED * dTime;
     }
+
+    let playerDirection = player.x > oldXPosition ? 1
+                      : player.x < oldXPosition ? -1
+                      : 0;
+    player.setDirection(playerDirection);
 
     this.draw(dTime);
 
