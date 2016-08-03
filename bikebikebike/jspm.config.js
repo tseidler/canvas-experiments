@@ -2,8 +2,8 @@ SystemJS.config({
   browserConfig: {
     "paths": {
       "npm:": "/jspm_packages/npm/",
-      "bikebikebike/": "/src/",
-      "utils": "/src/utils/"
+      "utils": "/src/utils/",
+      "bikebikebike/": "/src/"
     }
   },
   nodeConfig: {
